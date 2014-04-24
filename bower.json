@@ -3,10 +3,12 @@
   "description": "Widget.",
   "version": "0.1.0",
   "homepage": "https://github.com/charosez/lightbox",
-  "authors": [{
-    "name": "Charles Tai",
-    "url": "http://github.com/charosez/"
-  }],
+  "authors": [
+    {
+      "name": "Charles Tai",
+      "url": "http://github.com/charosez/"
+    }
+  ],
   "main": "app/index.html",
   "moduleType": [
     "amd"
@@ -27,7 +29,8 @@
     "requirejs": "~2.1.11",
     "almond": "~0.2.9",
     "famous-polyfills": "git+https://github.com/Famous/polyfills.git#0.1.1",
-    "famous": "git+https://github.com/Famous/famous.git#flat0.1.1"
+    "famous": "git+https://github.com/Famous/famous.git#flat0.1.1",
+    "lodash": "~2.4.1"
   },
   "scripts": {
     "postinstall": "grunt bower"
