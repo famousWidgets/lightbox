@@ -15,5 +15,7 @@ define(function(require, exports, module) {
         mainContext.add(appView);
     };
 
+    AppView();
+
     module.exports = LightBox;
 });
