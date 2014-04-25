@@ -1,44 +1,38 @@
 define(function(require, exports, module) {
-    'use strict';
-    // import dependencies
+    // 'use strict';
     var Engine = require('famous/core/Engine');
-    var ImageSurface = require('famous/surfaces/ImageSurface');
-    var Surface = require('famous/core/Surface');
-    var StateModifier = require('famous/modifiers/StateModifier');
     var View = require('famous/core/View');
-    var Event = require('famous/core/EventHandler');
+    var Transform = require('famous/core/Transform');
+    var StateModifier = require('famous/modifiers/StateModifier');
     var blurView = require('./blurView');
 
     // create the main context
     // takes in an object with properties: image and size
-    function appView (image) {
+    function AppView (options) {
+        // options must be an object that contains a content key
         View.apply(this);
-        this.image = image;
-        addImage.call(this);
-        _setEventListeners.call(this);
+        addBlur.call(this,options);
     }
 
-    appView.prototype = Object.create(View.prototype);
-    appView.prototype.constructor = appView;
+    AppView.DEFAULT_OPTIONS = {
 
-    function addImage(size) {
-        this.add(this.image);
-        this.image.on('click', function() {
-            this._eventOutput.emit('click');
+    };
+
+    AppView.prototype = Object.create(View.prototype);
+    AppView.prototype.constructor = AppView;
+
+    function addBlur(options) {
+        this.blurView = new blurView(options);
+        this.blurViewModifier = new StateModifier({});
+        this.add(this.blurViewModifier).add(this.blurView);
+
+        this._eventInput.subscribe(this.blurView._eventOutput);
+        this._eventInput.on('blurClicked', function () {
+            this.blurViewModifier.setTransform(
+                Transform.translate(1000,0,0)
+            );
         }.bind(this));
     }
 
-    function addBlur(image) {
-        this.blurView = new blurView(this.image);
-        this.add(this.blurView);
-    }
-
-    function _setEventListeners() {
-        // When image is clicked addBlur
-        this.on('click', function() {
-            addBlur.call(this);
-        }.bind(this));
-    }
-
-    module.exports = appView;
+    module.exports = AppView;
 });

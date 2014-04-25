@@ -29,6 +29,17 @@
         <script type="text/javascript" src="lib/requirejs/require.js" data-main="src/requireConfig"></script>
         <script type="text/javascript>" src="lib/lodash/dist/lodash.js"></script>
         <!-- /process -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(function () {
+                $('img.logo').on('click', function () {
+                    window.LightBox($(this).attr('src'));
+                });
+            });
+        </script>
     </head>
-    <body></body>
+
+    <body>
+        <img class='logo' src="content/images/famous_logo.png">
+    </body>
 </html>
